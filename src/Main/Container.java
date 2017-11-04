@@ -16,19 +16,7 @@
  */
 package Main;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.util.Hashtable;
-import javax.swing.BorderFactory;
-import java.awt.Cursor;
-import javax.swing.JButton;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 /**
  *
