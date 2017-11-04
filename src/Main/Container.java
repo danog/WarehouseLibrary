@@ -43,8 +43,14 @@ public abstract class Container
     }
     public void rebuild(String response) {
         this.products.clear();
+        if (response.isEmpty()) {
+            return;
+        }
         String[] split;
         for (String line: response.split("\n")) {
+            if (line.isEmpty()) {
+                continue;
+            }
             split = line.split(";");
             products.put(
                     Integer.parseInt(split[0]),
@@ -93,23 +99,32 @@ public abstract class Container
    /*
         Product getters/setters/checkers
      */
+    public Boolean hasProduct(ProductCollection collection) {
+        return products.containsKey(collection.getID());
+    }
     public Boolean hasProduct(Product product) {
         return products.containsKey(product.getID());
     }
     public Boolean hasProduct(Integer id) {
         return products.containsKey(id);
     }
-    public Product getProduct(Integer id) {
-        return products.get(id).getProduct();
+    public Product getProduct(ProductCollection collection) {
+        return products.get(collection.getID()).getProduct();
     }
     public Product getProduct(Product product) {
         return products.get(product.getID()).getProduct();
     }
-    public Integer getProductCount(Integer id) {
-        return products.get(id).getCount();
+    public Product getProduct(Integer id) {
+        return products.get(id).getProduct();
+    }
+    public Integer getProductCount(ProductCollection collection) {
+        return products.get(collection.getID()).getCount();
     }
     public Integer getProductCount(Product product) {
         return products.get(product.getID()).getCount();
+    }
+    public Integer getProductCount(Integer id) {
+        return products.get(id).getCount();
     }
     public Integer getProductCount() {
         return products.size();
@@ -117,11 +132,20 @@ public abstract class Container
     public ProductCollection getNthProductCollection(Integer id) {
         return (ProductCollection) products.values().toArray()[id];
     }
-    public ProductCollection getProductCollection(Integer id) {
-        return products.get(id);
+    public ProductCollection getProductCollection(ProductCollection collection) {
+        return products.get(collection.getID());
     }
     public ProductCollection getProductCollection(Product product) {
         return products.get(product.getID());
     }
-
+    public ProductCollection getProductCollection(Integer id) {
+        return products.get(id);
+    }
+    public Double getPriceTotal() {
+        Double res = 0d;
+        for (ProductCollection p: products.values()) {
+            res += p.getTotalPrice();
+        }
+        return res;
+    }
 }

@@ -31,13 +31,15 @@ import java.net.Socket;
  * @author Daniil Gentili
  */
 public class Client {
-    private BufferedWriter out;
-    private BufferedReader in;
+    private final BufferedWriter out;
+    private final BufferedReader in;
     
-    private Warehouse warehouse;
-    private Cart cart;
+    private final Warehouse warehouse;
+    private final Cart cart;
+    private Double allTimeTotal = 0d;
     
     public Client(String host, Integer port) throws IOException {
+        
         Socket socket = new Socket(host, port);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));    
@@ -67,17 +69,26 @@ public class Client {
         warehouse.addProduct(product);
     }
     
-    public void commit() throws IOException, ServerException {
+    public void checkout() throws IOException, ServerException {
         RequestPayload request = new RequestPayload("POST", "/", cart.getPayload());
         request.shouldKeepAlive(true);
         request.write(out);
 
         ResponsePayload response = new ResponsePayload(in);
 
+        this.warehouse.rebuild(response.getPayload());
+        this.cart.rebuild();
+        
         if (response.getResponseCode() != 200) {
             throw new ServerException(response);
         }
-        this.warehouse.rebuild(response.getPayload());
-        this.cart.rebuild();
+        this.allTimeTotal += this.cart.getPriceTotal();
+    }
+    public void close() throws IOException {
+        RequestPayload request = new RequestPayload("POST", "/analytics", allTimeTotal.toString());
+        request.shouldKeepAlive(false); // Just to close the connection
+        request.write(out);        
+        this.in.close();
+        this.out.close();
     }
 }

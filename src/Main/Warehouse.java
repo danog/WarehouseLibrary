@@ -27,6 +27,7 @@ public class Warehouse extends Container {
     public Warehouse() {
         
     }
+
     @Override
     public void removeProduct(Product prodotto) throws ClientException {
         if (this.getProductCollection(prodotto).getCount() < 1) {

@@ -21,9 +21,9 @@ package Main;
  * @author Daniil Gentili
  */
 public class Product {
-    private Double price;
-    private String description = "";
-    private Integer id;
+    private final Double price;
+    private final String description;
+    private final Integer id;
     
     public Product(Integer id, String descrizione, Double prezzo) {
         this.id = id;
@@ -41,7 +41,4 @@ public class Product {
         return price;
     }
     
-    public String toString() {
-        return String.format("%d;%s;%f;", id, description, price);
-    }
 }

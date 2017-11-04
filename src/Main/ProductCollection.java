@@ -16,6 +16,8 @@
  */
 package Main;
 
+import java.util.Locale;
+
 
 /**
  *
@@ -31,8 +33,14 @@ public class ProductCollection {
     public Integer getCount() {
         return count;
     }
+    public Integer increaseCount(Integer by) {
+        return count += by;
+    }
     public Integer increaseCount() {
         return count++;
+    }
+    public Integer decreaseCount(Integer by) {
+        return count -= by;
     }
     public Integer decreaseCount() {
         return count--;
@@ -49,8 +57,11 @@ public class ProductCollection {
     public Double getPrice() {
         return product.getPrice();
     }
+    public Double getTotalPrice() {
+        return product.getPrice()*count;
+    }
 
     public String toString() {
-        return String.format("%d;%s;%f;%d", product.getID(), product.getDescription(), product.getPrice(), count);
+        return String.format(Locale.ROOT, "%d;%s;%f;%d", product.getID(), product.getDescription(), product.getPrice(), count);
     }
 }
