@@ -19,8 +19,6 @@ package Main;
 import Payloads.RequestPayload;
 import Payloads.ResponsePayload;
 import Payloads.ServerException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -30,9 +28,9 @@ import java.net.Socket;
 
 /**
  *
- * @author root
+ * @author Daniil Gentili
  */
-public class Client implements ActionListener {
+public class Client {
     private BufferedWriter out;
     private BufferedReader in;
     
@@ -70,7 +68,6 @@ public class Client implements ActionListener {
     }
     
     public void commit() throws IOException, ServerException {
-
         RequestPayload request = new RequestPayload("POST", "/", cart.getPayload());
         request.shouldKeepAlive(true);
         request.write(out);
@@ -80,21 +77,7 @@ public class Client implements ActionListener {
         if (response.getResponseCode() != 200) {
             throw new ServerException(response);
         }
-        warehouse = new Warehouse(response.getPayload());
-        cart = new Cart();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.paramString());
-/*        if (e.getText().equals("Buy")) {
-            try {
-                this.addToCart(Integer.parseInt(e.getActionCommand()));
-            } catch (ClientException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-        }
-        */
+        this.warehouse.rebuild(response.getPayload());
+        this.cart.rebuild();
     }
 }

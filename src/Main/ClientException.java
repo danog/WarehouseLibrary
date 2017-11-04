@@ -18,7 +18,7 @@ package Main;
 
 /**
  *
- * @author root
+ * @author Daniil Gentili
  */
 public class ClientException extends Exception {
 

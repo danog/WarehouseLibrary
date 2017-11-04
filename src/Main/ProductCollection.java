@@ -19,7 +19,7 @@ package Main;
 
 /**
  *
- * @author root
+ * @author Daniil Gentili
  */
 public class ProductCollection {
     private final Product product;

@@ -20,7 +20,7 @@ import java.util.Hashtable;
 
 /**
  *
- * @author root
+ * @author Daniil Gentili
  */
 public abstract class Container 
 { 
@@ -32,6 +32,17 @@ public abstract class Container
         Constructors
     */
     public Container(String response) {
+        rebuild(response);
+    }
+    public Container() {
+        rebuild();
+    }
+    
+    public void rebuild() {
+        this.products.clear();
+    }
+    public void rebuild(String response) {
+        this.products.clear();
         String[] split;
         for (String line: response.split("\n")) {
             split = line.split(";");
@@ -48,11 +59,6 @@ public abstract class Container
             );
         }
     }
-    public Container() {
-        
-    }
-    
-    
     /**
      * Get the string payload of the container
      * @return The string payload

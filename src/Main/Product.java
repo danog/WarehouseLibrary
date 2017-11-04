@@ -18,7 +18,7 @@ package Main;
 
 /**
  *
- * @author Studente
+ * @author Daniil Gentili
  */
 public class Product {
     private Double price;

@@ -18,7 +18,7 @@ package Main;
 
 /**
  *
- * @author Studente
+ * @author Daniil Gentili
  */
 public class Cart extends Container {
     public Cart(String input) {
