@@ -16,8 +16,6 @@
  */
 package Main;
 
-import java.util.Hashtable;
-
 /**
  *
  * @author root
