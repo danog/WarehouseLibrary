@@ -76,13 +76,13 @@ public class Client {
 
         ResponsePayload response = new ResponsePayload(in);
 
+        this.allTimeTotal += this.cart.getPriceTotal();
         this.warehouse.rebuild(response.getPayload());
         this.cart.rebuild();
         
         if (response.getResponseCode() != 200) {
             throw new ServerException(response);
         }
-        this.allTimeTotal += this.cart.getPriceTotal();
     }
     public void close() throws IOException {
         RequestPayload request = new RequestPayload("POST", "/analytics", allTimeTotal.toString());
