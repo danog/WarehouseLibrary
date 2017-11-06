@@ -76,7 +76,9 @@ public class Client {
 
         ResponsePayload response = new ResponsePayload(in);
 
-        this.allTimeTotal += this.cart.getPriceTotal();
+        if (response.getResponseCode() == 200) {
+            this.allTimeTotal += this.cart.getPriceTotal();
+        }
         this.warehouse.rebuild(response.getPayload());
         this.cart.rebuild();
         
