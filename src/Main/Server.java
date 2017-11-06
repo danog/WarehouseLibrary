@@ -67,7 +67,4 @@ public class Server {
     synchronized public Warehouse getWarehouse() {
         return warehouse;
     }
-    
-    public void close() {
-    }
 }
